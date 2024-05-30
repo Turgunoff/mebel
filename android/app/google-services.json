@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "710515555992",
+    "project_id": "mebel-uz-ff24f",
+    "storage_bucket": "mebel-uz-ff24f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710515555992:android:cfbc9b6b209a5817155aed",
+        "android_client_info": {
+          "package_name": "com.example.mebel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZy-1reAmEvoNGRm3Xo0P7JoffnER_5W4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mebel/app/core/widgets/bottom_navigation_bar.dart';
 import 'package:mebel/app/modules/cart/bindings.dart';
 import 'package:mebel/app/modules/cart/view.dart';
 import 'package:mebel/app/modules/categories/bindings.dart';
@@ -13,12 +14,12 @@ import 'package:mebel/app/modules/profile/view.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = AppRoutes.HOME;
+  static const initial = AppRoutes.BottomNavigation;
 
   static final routes = [
     GetPage(
       name: AppRoutes.HOME,
-      page: () => const HomeScreen(),
+      page: () => HomeScreen(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -41,6 +42,13 @@ class AppPages {
       page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
+    GetPage(
+      name: AppRoutes.BottomNavigation,
+      page: () => BottomNavigationBarWidget(),
+      binding: BottomNavigationBinding(),
+    ),
+    // GetPage(
+    //   name: AppRoutes.HOME)
     // GetPage(
     //   name: AppRoutes.PRODUCT_DETAILS,
     //   page: () => const ProductDetailsView(),

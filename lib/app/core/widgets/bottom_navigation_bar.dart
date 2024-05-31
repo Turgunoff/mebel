@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:mebel/app/modules/cart/view.dart';
 import 'package:mebel/app/modules/categories/view.dart';
 import 'package:mebel/app/modules/favorites/view.dart';
+import 'package:mebel/app/modules/home/controller.dart';
 import 'package:mebel/app/modules/home/view.dart';
+import 'package:mebel/app/modules/profile/controller.dart';
 import 'package:mebel/app/modules/profile/view.dart';
-import 'package:mebel/app/routes/app_pages.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   BottomNavigationBarWidget({super.key});
@@ -24,13 +23,13 @@ class BottomNavigationBarWidget extends StatelessWidget {
           selectedIndex: controller.currentIndex.value,
           onDestinationSelected: (index) =>
               controller.currentIndex.value = index,
-          backgroundColor: const Color(0xFFF9F9F9),
-          indicatorColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          indicatorColor: Theme.of(context).primaryColor,
           animationDuration: const Duration(milliseconds: 300),
           destinations: const [
             NavigationDestination(
-              selectedIcon: Icon(Iconsax.home, color: Colors.white),
-              icon: Icon(Iconsax.home),
+              selectedIcon: Icon(Iconsax.home_copy, color: Colors.white),
+              icon: Icon(Iconsax.home_copy),
               label: 'Главная',
             ),
             NavigationDestination(
@@ -59,23 +58,25 @@ class BottomNavigationBarWidget extends StatelessWidget {
               //         .heart), // Tanlanmagan ikonka uchun rangni o'zgartiring
               //   ),
               // ),
-              selectedIcon: Icon(Iconsax.heart, color: Colors.white),
-              icon: Icon(Iconsax.heart),
+              selectedIcon: Icon(Iconsax.heart_copy, color: Colors.white),
+              icon: Icon(Iconsax.heart_copy),
               label: 'Избранное',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Iconsax.category, color: Colors.white),
-              icon: Icon(Iconsax.category),
+              selectedIcon: Icon(Iconsax.category_copy, color: Colors.white),
+              icon: Icon(Iconsax.category_copy),
               label: 'Каталог',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Iconsax.shopping_cart, color: Colors.white),
-              icon: Icon(Iconsax.shopping_cart),
+              selectedIcon:
+                  Icon(Iconsax.shopping_cart_copy, color: Colors.white),
+              icon: Icon(Iconsax.shopping_cart_copy),
               label: 'Корзина',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Iconsax.profile_circle, color: Colors.white),
-              icon: Icon(Iconsax.profile_circle),
+              selectedIcon:
+                  Icon(Iconsax.profile_circle_copy, color: Colors.white),
+              icon: Icon(Iconsax.profile_circle_copy),
               label: 'Профиль',
             ),
           ],
@@ -92,10 +93,22 @@ class NavigationController extends GetxController {
   final RxInt currentIndex = 0.obs;
 
   final screens = [
-    const HomeScreen(),
-    const FavoritesView(),
-    const CategoriesView(),
-    const CartView(),
+    HomeScreen(),
+    FavoritesView(),
+    CategoriesView(),
+    CartView(),
     ProfileView(),
   ];
+}
+
+class BottomNavigationBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => NavigationController());
+    Get.lazyPut(() => HomeController());
+    // Get.lazyPut(() => FavoritesController());
+    // Get.lazyPut(() => CategoriesController());
+    // Get.lazyPut(() => CartController());
+    Get.lazyPut(() => ProfileController());
+  }
 }

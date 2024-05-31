@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mebel/app/core/theme/app_theme.dart';
 import 'package:mebel/app/core/widgets/bottom_navigation_bar.dart';
+import 'package:mebel/app/modules/home/bindings.dart';
 import 'package:mebel/firebase_options.dart';
 
 import 'app/routes/app_pages.dart';
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
                   .light, // Aks holda, saqlangan tema rejimidan foydalanish, // GetX qurilma temasiga moslashadi
       home: BottomNavigationBarWidget(),
       getPages: AppPages.routes,
+      initialBinding: BottomNavigationBinding(),
+      // initialRoute: AppPages.,
     );
   }
 }

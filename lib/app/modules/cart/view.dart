@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mebel/app/core/widgets/bottom_navigation_bar.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});

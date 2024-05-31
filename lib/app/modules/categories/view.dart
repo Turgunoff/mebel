@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mebel/app/core/widgets/bottom_navigation_bar.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key});

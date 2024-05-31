@@ -1,11 +1,11 @@
 name: mebel
 description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.3.4 <4.0.0'
+  sdk: ">=3.3.4 <4.0.0"
 
 dependencies:
   flutter:
@@ -13,6 +13,11 @@ dependencies:
 
   cupertino_icons: ^1.0.6
   firebase_core: ^2.32.0
+  get: ^4.6.6
+  google_nav_bar: ^5.0.6
+  line_icons: ^2.0.3
+  salomon_bottom_bar: ^3.3.2
+  iconsax_flutter: ^1.0.0
 
 dev_dependencies:
   flutter_test:

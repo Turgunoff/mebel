@@ -96,6 +96,6 @@ class NavigationController extends GetxController {
     const FavoritesView(),
     const CategoriesView(),
     const CartView(),
-    const ProfileView(),
+    ProfileView(),
   ];
 }

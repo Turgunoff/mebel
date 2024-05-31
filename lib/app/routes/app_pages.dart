@@ -13,7 +13,7 @@ import 'package:mebel/app/modules/profile/view.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = AppRoutes.HOME;
+  static const initial = AppRoutes.HOME;
 
   static final routes = [
     GetPage(
@@ -38,7 +38,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.PROFILE,
-      page: () => const ProfileView(),
+      page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
     // GetPage(

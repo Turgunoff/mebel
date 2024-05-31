@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:mebel/app/core/widgets/bottom_navigation_bar.dart';
+import 'package:get/get.dart';
+import 'package:mebel/app/modules/profile/controller.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+  ProfileView({super.key});
+
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Profil'),
       ),
-      body: const Center(
-        child: Text('Profile'),
+      body: Center(
+        child: Obx(
+          // Obx vidjeti qo'shildi
+          () => SwitchListTile(
+            title: const Text('Dark Mode'),
+            value: controller.isDarkMode.value, // O'zgaruvchiga murojaat qilish
+            onChanged: (val) {
+              controller.changeThemeMode();
+            },
+          ),
+        ),
       ),
-      // bottomNavigationBar: BottomNavigationBarWidget(),
     );
   }
 }

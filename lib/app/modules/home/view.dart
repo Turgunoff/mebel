@@ -888,6 +888,9 @@ class HomeScreen extends GetView<HomeController> {
             ),
             context: context,
             builder: (context) => Container(
+              color: context.isDarkMode
+                  ? AppTheme.darkCardBackgroundColor
+                  : AppTheme.lightCardBackgroundColor,
               padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

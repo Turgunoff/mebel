@@ -20,27 +20,27 @@ class AppPages {
     GetPage(
       name: AppRoutes.HOME,
       page: () => HomeScreen(),
-      binding: HomeBinding(),
+      binding: BottomNavigationBinding(),
     ),
     GetPage(
       name: AppRoutes.CATEGORIES,
       page: () => const CategoriesView(),
-      binding: CategoriesBinding(),
+      binding: BottomNavigationBinding(),
     ),
     GetPage(
       name: AppRoutes.FAVORITES,
       page: () => const FavoritesView(),
-      binding: FavoritesBinding(),
+      binding: BottomNavigationBinding(),
     ),
     GetPage(
       name: AppRoutes.CART,
       page: () => const CartView(),
-      binding: CartBinding(),
+      binding: BottomNavigationBinding(),
     ),
     GetPage(
       name: AppRoutes.PROFILE,
       page: () => ProfileView(),
-      binding: ProfileBinding(),
+      binding: BottomNavigationBinding(),
     ),
     GetPage(
       name: AppRoutes.BottomNavigation,

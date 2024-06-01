@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:mebel/app/modules/cart/controller.dart';
 import 'package:mebel/app/modules/cart/view.dart';
+import 'package:mebel/app/modules/categories/controller.dart';
 import 'package:mebel/app/modules/categories/view.dart';
+import 'package:mebel/app/modules/favorites/controller.dart';
 import 'package:mebel/app/modules/favorites/view.dart';
 import 'package:mebel/app/modules/home/controller.dart';
 import 'package:mebel/app/modules/home/view.dart';
@@ -106,9 +109,9 @@ class BottomNavigationBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => NavigationController());
     Get.lazyPut(() => HomeController());
-    // Get.lazyPut(() => FavoritesController());
-    // Get.lazyPut(() => CategoriesController());
-    // Get.lazyPut(() => CartController());
+    Get.lazyPut(() => FavoritesController());
+    Get.lazyPut(() => CategoriesController());
+    Get.lazyPut(() => CartController());
     Get.lazyPut(() => ProfileController());
   }
 }

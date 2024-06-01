@@ -934,7 +934,7 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Iconsax.message,
+                      Iconsax.message_copy,
                       color: context.isDarkMode
                           ? AppTheme.darkIconColor
                           : AppTheme.lightPrimaryColor,

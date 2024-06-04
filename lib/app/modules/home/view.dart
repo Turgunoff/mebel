@@ -8,6 +8,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:mebel/app/core/constants/sized_box_extensions.dart';
 import 'package:mebel/app/core/theme/app_theme.dart';
 import 'package:mebel/app/modules/home/controller.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -16,6 +17,15 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final List<String> imageList = [
+      "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
+      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
       "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
       "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
       "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
@@ -31,85 +41,23 @@ class HomeScreen extends GetView<HomeController> {
         ],
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
           children: [
-            CarouselSlider(
-              items: imageList
-                  .map((item) => ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: item,
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width,
-                          placeholder: (context, url) => const Center(
-                            child: CupertinoActivityIndicator(
-                              radius: 10,
-                              animating: true,
-                            ),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ))
-                  .toList(), // CachedNetworkImage lar ro'yxati yaratiladi
-              options: CarouselOptions(
-                autoPlay: true,
-                aspectRatio: 2.0,
-                enlargeCenterPage: true,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                viewportFraction: 0.9,
-                scrollPhysics: const ScrollPhysics(),
-              ),
-            ),
+            adsCarousel(imageList, context),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    const SizedBox(height: 16.0),
-                    SizedBox(
-                      height: 50.0,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 0),
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: context.isDarkMode
-                                    ? Colors.grey[700]!
-                                    : Colors.grey[300]!,
-                                width: 0),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: context.isDarkMode
-                                    ? Colors.grey[700]!
-                                    : Colors.grey[300]!,
-                                width: 0),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12)),
-                          ),
-                          fillColor: context.isDarkMode
-                              ? AppTheme.darkBackgroundColor
-                              : AppTheme.lightBackgroundColor,
-                          prefixIcon:
-                              const Icon(Iconsax.search_normal_copy, size: 25),
-                          hintText: 'Поиск товаров',
-                          hintStyle: const TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
+                    8.kH,
+                    searchProduct(context),
+                    16.kH,
                     sectionText('Популярные категории'),
-                    const SizedBox(height: 16.0),
+                    16.kH,
                     popularCategories(),
-                    const SizedBox(height: 16.0),
+                    16.kH,
                     sectionText('Хиты продаж'),
-                    const SizedBox(height: 16.0),
+                    16.kH,
                     popularProducts(),
                     16.kH,
                     sectionText('Лучшие предложения'),
@@ -123,6 +71,90 @@ class HomeScreen extends GetView<HomeController> {
                   ],
                 )),
           ],
+        ),
+      ),
+    );
+  }
+
+  Column adsCarousel(List<String> imageList, BuildContext context) {
+    return Column(
+      children: [
+        CarouselSlider(
+          carouselController: CarouselController(),
+          items: imageList
+              .map((item) => ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: item,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                      placeholder: (context, url) => const Center(
+                        child: CupertinoActivityIndicator(
+                          radius: 10,
+                          animating: true,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                  ))
+              .toList(),
+          options: CarouselOptions(
+              autoPlay: true,
+              aspectRatio: 2.0,
+              enlargeCenterPage: true,
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enableInfiniteScroll: true,
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              viewportFraction: 0.9,
+              scrollPhysics: const ScrollPhysics(),
+              onPageChanged: controller.onPageChanged),
+        ),
+        8.kH,
+        Obx(() => Center(
+              child: AnimatedSmoothIndicator(
+                activeIndex:
+                    controller.carouselIndex, // Get index from controller
+                count: imageList.length,
+                effect: WormEffect(
+                    dotWidth: 8,
+                    dotHeight: 8,
+                    spacing: 6,
+                    dotColor: AppTheme.lightHintColor,
+                    activeDotColor: AppTheme.lightSecondaryColor),
+              ),
+            )),
+      ],
+    );
+  }
+
+  SizedBox searchProduct(BuildContext context) {
+    return SizedBox(
+      height: 50.0,
+      child: TextField(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+          filled: true,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color:
+                    context.isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                width: 0),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color:
+                    context.isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                width: 0),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+          ),
+          fillColor: context.isDarkMode
+              ? AppTheme.darkBackgroundColor
+              : AppTheme.lightBackgroundColor,
+          prefixIcon: const Icon(Iconsax.search_normal_copy, size: 25),
+          hintText: 'Поиск товаров',
+          hintStyle: const TextStyle(fontSize: 16),
         ),
       ),
     );
@@ -221,8 +253,8 @@ class HomeScreen extends GetView<HomeController> {
           return GestureDetector(
             onTap: () {},
             child: Container(
-              width: 170.0,
-              margin: const EdgeInsets.only(right: 8.0),
+              width: 180.0,
+              margin: const EdgeInsets.only(right: 8.0, bottom: 6.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: context.isDarkMode
@@ -233,11 +265,12 @@ class HomeScreen extends GetView<HomeController> {
                   BoxShadow(
                     color: context.isDarkMode
                         ? Colors.grey[800]!
-                            .withOpacity(0.5) // Dark tema uchun soya rangi
-                        : Colors.grey.withOpacity(0.1),
-                    spreadRadius: 3,
-                    blurRadius: 2,
-                    offset: const Offset(0, 3),
+                            .withOpacity(0.2) // Dark tema uchun soya rangi
+                        : Colors.grey
+                            .withOpacity(0.1), // Light tema uchun soya rangi
+                    spreadRadius: 3, // Soyaning tarqalish radiusi
+                    blurRadius: 6, // Soyaning xiralashish radiusi
+                    offset: const Offset(0, 3), // Soyaning ofseti (x, y)
                   ),
                 ],
               ),
@@ -482,8 +515,8 @@ class HomeScreen extends GetView<HomeController> {
           return GestureDetector(
             onTap: () {},
             child: Container(
-              width: 170.0,
-              margin: const EdgeInsets.only(right: 8.0),
+              width: 180.0,
+              margin: const EdgeInsets.only(right: 8.0, bottom: 6.0),
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: context.isDarkMode
@@ -494,11 +527,12 @@ class HomeScreen extends GetView<HomeController> {
                   BoxShadow(
                     color: context.isDarkMode
                         ? Colors.grey[800]!
-                            .withOpacity(0.5) // Dark tema uchun soya rangi
-                        : Colors.grey.withOpacity(0.1),
-                    spreadRadius: 3,
-                    blurRadius: 2,
-                    offset: const Offset(0, 3),
+                            .withOpacity(0.2) // Dark tema uchun soya rangi
+                        : Colors.grey
+                            .withOpacity(0.1), // Light tema uchun soya rangi
+                    spreadRadius: 3, // Soyaning tarqalish radiusi
+                    blurRadius: 6, // Soyaning xiralashish radiusi
+                    offset: const Offset(0, 3), // Soyaning ofseti (x, y)
                   ),
                 ],
               ),

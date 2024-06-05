@@ -7,7 +7,8 @@ import '../../data/models/category_model.dart';
 class HomeController extends GetxController {
   final _carouselIndex = 0.obs; // Observable variable for current index
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final _categories = <Category>[].obs;
+  final categories = <Category>[].obs;
+  final isLoading = false.obs; // isLoading o'zgaruvchisi
 
   @override
   void onInit() {
@@ -16,17 +17,20 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchPopularCategories() async {
+    isLoading.value = true;
     try {
       final snapshot = await _firestore
-          .collection('categories')
-          .orderBy('order', descending: false) // O'sish tartibi
-          .limit(6)
+          .collection('Category')
+          .orderBy('order', descending: false)
+          .limit(4)
           .get();
 
-      _categories.value =
+      categories.value =
           snapshot.docs.map((doc) => Category.fromFirestore(doc)).toList();
     } catch (e) {
       print('Error fetching categories: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:mebel/app/core/constants/sized_box_extensions.dart';
 import 'package:mebel/app/core/theme/app_theme.dart';
 import 'package:mebel/app/modules/home/controller.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -174,73 +175,102 @@ class HomeScreen extends GetView<HomeController> {
   }
 
   popularCategories() {
-    return GridView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200.0,
-        childAspectRatio: 3 / 1,
-      ),
-      itemCount: 8,
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.all(4.0),
-            margin: const EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.0),
-              color: context.isDarkMode // Tema rejimiga qarab rangni tanlash
-                  ? AppTheme.darkCardBackgroundColor
-                  : AppTheme.lightCardBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  color: context.isDarkMode
-                      ? Colors.grey[800]!
-                          .withOpacity(0.5) // Dark tema uchun soya rangi
-                      : Colors.grey
-                          .withOpacity(0.1), // Light tema uchun soya rangi
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: GridView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200.0,
+              childAspectRatio: 3 / 1,
             ),
-            child: Row(
-              children: <Widget>[
-                CachedNetworkImage(
-                  height: 40,
-                  width: 40,
-                  imageUrl: 'asdfs',
-                  fit: BoxFit.contain,
-                  placeholder: (context, url) => const Center(
-                    child: CupertinoActivityIndicator(
-                      radius: 10,
-                      animating: true,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-                const SizedBox(width: 8.0),
-                const Expanded(
-                  child: Text(
-                    'asdfsdf',
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      letterSpacing: -1,
-                      height: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            itemCount: 4,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                width: 48.0,
+                height: 48.0,
+                color: Colors.red,
+              );
+            },
           ),
+        ); // Shimmer effektini ko'rsatish
+      } else {
+        return GridView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200.0,
+            childAspectRatio: 3 / 1,
+          ),
+          itemCount: controller.categories.length,
+          itemBuilder: (BuildContext context, int index) {
+            final category = controller.categories[index];
+            return GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(4.0),
+                margin: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color:
+                      context.isDarkMode // Tema rejimiga qarab rangni tanlash
+                          ? AppTheme.darkCardBackgroundColor
+                          : AppTheme.lightCardBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: context.isDarkMode
+                          ? Colors.grey[800]!
+                              .withOpacity(0.5) // Dark tema uchun soya rangi
+                          : Colors.grey
+                              .withOpacity(0.1), // Light tema uchun soya rangi
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: <Widget>[
+                    CachedNetworkImage(
+                      height: 40,
+                      width: 40,
+                      imageUrl: category.image,
+                      fit: BoxFit.contain,
+                      placeholder: (context, url) => const Center(
+                        child: CupertinoActivityIndicator(
+                          radius: 10,
+                          animating: true,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: Text(
+                        category.name,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          letterSpacing: -1,
+                          height: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
-      },
-    );
+      }
+    });
   }
 
   popularProducts() {

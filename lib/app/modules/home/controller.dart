@@ -92,7 +92,7 @@ class HomeController extends GetxController {
       box.write('favorites', favorites);
       _favorites.add(product);
     }
-    update();
+    update(); // UI ni yangilash uchun
   }
 
   void _loadFavorites() {

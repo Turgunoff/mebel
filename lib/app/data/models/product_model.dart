@@ -41,4 +41,31 @@ class Product {
       categoryId: data['categoryId'],
     );
   }
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      name: json['name'],
+      images: List<String>.from(json['images']),
+      price: json['price'],
+      discount: json['discount'],
+      description: json['description'],
+      dimensions: json['dimensions'],
+      characteristics: json['characteristics'],
+      assemblyPrice: json['assemblyPrice'],
+      categoryId: json['categoryId'],
+    );
+  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'images': images,
+        'price': price,
+        'discount': discount,
+        'description': description,
+        'dimensions': dimensions,
+        'characteristics': characteristics,
+        'assemblyPrice': assemblyPrice,
+        'categoryId': categoryId
+      };
 }

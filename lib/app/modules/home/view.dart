@@ -14,24 +14,16 @@ import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+
+  final controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     final List<String> imageList = [
       "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
       "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/ok32udp2hlhl-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/ca51rjbqvwgc1-UZ/image;s=1000x700",
-      "https://frankfurt.apollo.olxcdn.com/v1/files/vfekxxij9cn7-UZ/image;s=1000x700",
     ];
     return RefreshIndicator(
       onRefresh: () async {
@@ -402,26 +394,30 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                Positioned(
-                  top: 4,
-                  right: 4,
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(50),
+                Obx(() => Positioned(
+                      top: 4,
+                      right: 4,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          controller.toggleFavorite(product);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Icon(
+                            controller.isFavorite(product.id)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.yellow,
+                            size: 24,
+                          ),
+                        ),
                       ),
-                      child: const Icon(
-                        Iconsax.heart_copy,
-                        color: Colors.yellow,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                ),
+                    )),
               ],
             ),
             8.kH,

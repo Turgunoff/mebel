@@ -12,9 +12,13 @@ import 'package:mebel/app/modules/home/view.dart';
 import 'package:mebel/app/modules/profile/controller.dart';
 import 'package:mebel/app/modules/profile/view.dart';
 
+import 'package:badges/badges.dart' as badges; // badges paketini import qiling
+
 class BottomNavigationBarWidget extends StatelessWidget {
   BottomNavigationBarWidget({super.key});
   final controller = Get.put(NavigationController());
+
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,54 +33,51 @@ class BottomNavigationBarWidget extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.background,
           indicatorColor: Theme.of(context).primaryColor,
           animationDuration: const Duration(milliseconds: 300),
-          destinations: const [
-            NavigationDestination(
+          destinations: [
+            const NavigationDestination(
               selectedIcon: Icon(Iconsax.home_copy, color: Colors.white),
               icon: Icon(Iconsax.home_copy),
               label: 'Главная',
             ),
             NavigationDestination(
-              // selectedIcon: Obx(
-              //   () => badges.Badge(
-              //     badgeContent: Text(
-              //       favoritesController.favorites.length.toString(),
-              //       style: const TextStyle(color: Colors.white),
-              //     ),
-              //     showBadge: favoritesController.favorites.isNotEmpty,
-              //     position: badges.BadgePosition.topEnd(top: -8, end: -8),
-              //     child: const Icon(Iconsax.heart,
-              //         color: Colors
-              //             .white), // Tanlangan ikonka uchun rangni o'zgartiring
-              //   ),
-              // ),
-              // icon: Obx(
-              //   () => badges.Badge(
-              //     badgeContent: Text(
-              //       favoritesController.favorites.length.toString(),
-              //       style: const TextStyle(color: Colors.white),
-              //     ),
-              //     showBadge: favoritesController.favorites.isNotEmpty,
-              //     position: badges.BadgePosition.topEnd(top: -8, end: -8),
-              //     child: const Icon(Iconsax
-              //         .heart), // Tanlanmagan ikonka uchun rangni o'zgartiring
-              //   ),
-              // ),
-              selectedIcon: Icon(Iconsax.heart_copy, color: Colors.white),
-              icon: Icon(Iconsax.heart_copy),
+              selectedIcon: Obx(
+                () => badges.Badge(
+                  badgeContent: Text(
+                    homeController.favorites.length.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  showBadge: homeController.favorites.isNotEmpty,
+                  position: badges.BadgePosition.topEnd(top: -8, end: -8),
+                  child: const Icon(Iconsax.heart_copy, color: Colors.white),
+                ),
+              ),
+              icon: Obx(
+                () => badges.Badge(
+                  badgeContent: Text(
+                    homeController.favorites.length.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  showBadge: homeController.favorites.isNotEmpty,
+                  position: badges.BadgePosition.topEnd(top: -8, end: -8),
+                  child: const Icon(Iconsax.heart_copy),
+                ),
+              ),
+              // selectedIcon: Icon(Iconsax.heart_copy, color: Colors.white),
+              // icon: Icon(Iconsax.heart_copy),
               label: 'Избранное',
             ),
-            NavigationDestination(
+            const NavigationDestination(
               selectedIcon: Icon(Iconsax.category_copy, color: Colors.white),
               icon: Icon(Iconsax.category_copy),
               label: 'Каталог',
             ),
-            NavigationDestination(
+            const NavigationDestination(
               selectedIcon:
                   Icon(Iconsax.shopping_cart_copy, color: Colors.white),
               icon: Icon(Iconsax.shopping_cart_copy),
               label: 'Корзина',
             ),
-            NavigationDestination(
+            const NavigationDestination(
               selectedIcon:
                   Icon(Iconsax.profile_circle_copy, color: Colors.white),
               icon: Icon(Iconsax.profile_circle_copy),
@@ -98,8 +99,8 @@ class NavigationController extends GetxController {
   final screens = [
     HomeScreen(),
     FavoritesView(),
-    CategoriesView(),
-    CartView(),
+    const CategoriesView(),
+    const CartView(),
     ProfileView(),
   ];
 }

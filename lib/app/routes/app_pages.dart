@@ -29,7 +29,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.FAVORITES,
-      page: () => const FavoritesView(),
+      page: () => FavoritesView(),
       binding: BottomNavigationBinding(),
     ),
     GetPage(
